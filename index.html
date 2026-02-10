@@ -1,88 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Valentine 💘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 100px; background:#fff0f5; }
-    #box {
-      border: 2px solid #ff4d6d; width: 320px; margin: auto; padding: 20px;
-      border-radius: 12px; position: relative; background: #fff; box-shadow: 0 0 15px rgba(255,0,100,0.3);
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f3;
+      text-align: center;
+      margin-top: 100px;
     }
-    #no { position: absolute; }
-    h3 { color: #ff4d6d; }
-    button { padding: 10px 20px; margin: 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; }
-    #yesBtn { background: #ff4d6d; color: #fff; }
-    #no { background: #fff; border: 2px solid #ff4d6d; color: #ff4d6d; }
-    /* Confetti container */
-    .confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events:none; overflow: hidden; z-index:9999; }
+
+    #box {
+      border: 2px solid #ff4d6d;
+      width: 320px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #adb5bd;
+      color: white;
+      position: absolute;
+    }
   </style>
 </head>
+
 <body>
 
 <div id="box">
   <h3>Will you be my Valentine, Tharani? 💖</h3>
-  <button id="yesBtn" onclick="sayYes()">Yes 😍</button>
-  <button id="no" onmouseover="moveNo()" onclick="countNoClick()">No 🙃</button>
+
+  <button id="yes" onclick="sayYes()">Yes 😍</button>
+  <button id="no" onclick="handleNo()">No 🙃</button>
 </div>
 
-<div class="confetti" id="confetti"></div>
-
 <script>
-  // ----- No button logic -----
-  let noClickCount = 0;
-  function moveNo() {
+  let noClicks = 0;
+
+  function handleNo() {
+    noClicks++;
+
+    // move No button
     const no = document.getElementById("no");
-    no.style.left = Math.random() * 200 + "px";
-    no.style.top = Math.random() * 100 + "px";
-  }
-  function countNoClick() {
-    noClickCount++;
-    if(noClickCount >= 5) {
-      sayYes(); // Auto open DM after 5 No clicks
+    no.style.left = Math.random() * 220 + "px";
+    no.style.top = Math.random() * 120 + "px";
+
+    // after 5 clicks → force Yes flow
+    if (noClicks >= 5) {
+      sayYes();
     }
   }
 
-  // ----- Yes button logic -----
   function sayYes() {
-    // Show redirecting message and confetti
-    document.body.innerHTML = "<h2>Redirecting to Instagram... 💌</h2><div class='confetti' id='confetti'></div>";
-    startConfetti();
+    document.body.innerHTML = `
+      <h2>Opening Instagram DM… 💌</h2>
+      <p>Please tap <b>Send</b> ❤️</p>
+    `;
 
     setTimeout(() => {
-      // IG DM deep link to your account
       window.location.href =
-        "https://ig.me/m/ashan_d_?text=Yes! 💕 I’ll be your Valentine 😘";
-    }, 1500);
-  }
-
-  // ----- Confetti animation -----
-  function startConfetti() {
-    const confettiContainer = document.getElementById('confetti');
-    for(let i=0;i<100;i++){
-      const confetti = document.createElement('div');
-      confetti.style.position = 'absolute';
-      confetti.style.width = '10px';
-      confetti.style.height = '10px';
-      confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
-      confetti.style.left = Math.random()*100 + 'vw';
-      confetti.style.top = Math.random()*-20 + 'px';
-      confetti.style.opacity = Math.random();
-      confetti.style.transform = `rotate(${Math.random()*360}deg)`;
-      confetti.style.borderRadius = '50%';
-      confettiContainer.appendChild(confetti);
-
-      // Animate confetti
-      let top = parseFloat(confetti.style.top);
-      const fall = setInterval(() => {
-        top += Math.random()*5+2;
-        confetti.style.top = top + 'px';
-        if(top > window.innerHeight){
-          confettiContainer.removeChild(confetti);
-          clearInterval(fall);
-        }
-      }, 16);
-    }
+        "https://www.instagram.com/direct/new/?username=ashan_d_&text=Yes! 💕 I’ll be your Valentine 😘";
+    }, 1200);
   }
 </script>
 
