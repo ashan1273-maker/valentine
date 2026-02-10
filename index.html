@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine 💘</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #box {
+      border: 2px solid #ff4d6d;
+      width: 320px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    #no {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<div id="box">
+  <h3>Will you be my Valentine, Tharani? 💖</h3>
+
+  <button onclick="sayYes()">Yes 😍</button>
+  <button id="no" onmouseover="moveNo()">No 🙃</button>
+</div>
+
+<script>
+  function moveNo() {
+    const no = document.getElementById("no");
+    no.style.left = Math.random() * 200 + "px";
+    no.style.top = Math.random() * 100 + "px";
+  }
+
+  function sayYes() {
+    window.location.href =
+      "https://ig.me/m/ashan_d_?text=Yes! 💕 I’ll be your Valentine 😘";
+  }
+</script>
+
+</body>
+</html>
