@@ -15,10 +15,16 @@
       margin: auto;
       padding: 20px;
       border-radius: 12px;
-      position: relative; /* 🔑 important */
+      position: relative;
     }
     #no {
       position: absolute;
+      left: 120px; /* initial position */
+      top: 60px;   /* initial position */
+      transition: all 0.2s ease; /* smooth movement */
+    }
+    #yes {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -27,7 +33,7 @@
 <div id="box">
   <h3>Will you be my Valentine, Tharani? 💖</h3>
 
-  <button onclick="sayYes()">Yes 😍</button>
+  <button id="yes" onclick="sayYes()">Yes 😍</button>
   <button id="no" onclick="handleNo()">No 🙃</button>
 </div>
 
@@ -37,14 +43,24 @@
   function handleNo() {
     noClicks++;
 
-    const box = document.getElementById("box");
     const no = document.getElementById("no");
 
-    const maxX = box.clientWidth - no.offsetWidth;
-    const maxY = box.clientHeight - no.offsetHeight;
+    // Move slightly from current position
+    const moveX = (Math.random() - 0.5) * 40; // max ±20px
+    const moveY = (Math.random() - 0.5) * 40; // max ±20px
 
-    no.style.left = Math.random() * maxX + "px";
-    no.style.top = Math.random() * maxY + "px";
+    // get current numeric positions
+    const currentX = parseFloat(no.style.left);
+    const currentY = parseFloat(no.style.top);
+
+    no.style.left = (currentX + moveX) + "px";
+    no.style.top = (currentY + moveY) + "px";
+
+    // limit inside the box
+    if (parseFloat(no.style.left) < 0) no.style.left = "0px";
+    if (parseFloat(no.style.top) < 0) no.style.top = "0px";
+    if (parseFloat(no.style.left) > 220) no.style.left = "220px";
+    if (parseFloat(no.style.top) > 100) no.style.top = "100px";
 
     if (noClicks >= 3) {
       sayYes();
