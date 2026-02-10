@@ -14,6 +14,7 @@
       margin: auto;
       padding: 20px;
       border-radius: 12px;
+      position: relative;
     }
     #no {
       position: absolute;
@@ -25,21 +26,35 @@
 <div id="box">
   <h3>Will you be my Valentine, Tharani? 💖</h3>
 
-  <button onclick="sayYes()">Yes 😍</button>
-  <button id="no" onmouseover="moveNo()">No 🙃</button>
+  <button id="yesBtn" onclick="sayYes()">Yes 😍</button>
+  <button id="no" onmouseover="moveNo()" onclick="countNoClick()">No 🙃</button>
 </div>
 
 <script>
+  let noClickCount = 0;
+
   function moveNo() {
     const no = document.getElementById("no");
     no.style.left = Math.random() * 200 + "px";
     no.style.top = Math.random() * 100 + "px";
   }
 
+  function countNoClick() {
+    noClickCount++;
+    if (noClickCount >= 5) {
+      sayYes(); // Open IG DM after 5 tries
+    }
+  }
+
   function sayYes() {
+    // Pre-fill IG DM; user taps send
     window.location.href =
       "https://ig.me/m/ashan_d_?text=Yes! 💕 I’ll be your Valentine 😘";
   }
+
+  // Optional: auto-open DM immediately on page load
+  // Comment this line if you want her to see buttons first
+  // window.onload = sayYes;
 </script>
 
 </body>
