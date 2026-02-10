@@ -15,6 +15,7 @@
       margin: auto;
       padding: 20px;
       border-radius: 12px;
+      position: relative; /* 🔑 important */
     }
     #no {
       position: absolute;
@@ -36,11 +37,15 @@
   function handleNo() {
     noClicks++;
 
+    const box = document.getElementById("box");
     const no = document.getElementById("no");
-    no.style.left = Math.random() * 200 + "px";
-    no.style.top = Math.random() * 100 + "px";
 
-    // Only change: 3 clicks
+    const maxX = box.clientWidth - no.offsetWidth;
+    const maxY = box.clientHeight - no.offsetHeight;
+
+    no.style.left = Math.random() * maxX + "px";
+    no.style.top = Math.random() * maxY + "px";
+
     if (noClicks >= 3) {
       sayYes();
     }
